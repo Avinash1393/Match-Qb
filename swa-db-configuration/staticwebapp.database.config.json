@@ -1,0 +1,152 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/download/latest/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "Server=tcp:forsitesample.database.windows.net,1433;Initial Catalog=ForesiteSample;Persist Security Info=False;User ID=CloudSA763329b9;Password=)$8u4QrR-?q\":,p;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30",
+    "options": {
+      "set-session-context": false
+    }
+  },
+  "runtime": {
+    "rest": {
+      "enabled": true,
+      "path": "/rest"
+    },
+    "graphql": {
+      "enabled": true,
+      "path": "/graphql",
+      "allow-introspection": true
+    },
+    "host": {
+      "cors": {
+        "origins": [],
+        "allow-credentials": false
+      },
+      "authentication": {
+        "provider": "StaticWebApps"
+      },
+      "mode": "production"
+    }
+  },
+"entities": {
+  "Site": {
+    "source": {
+      "object": "dbo.ForesiteSites",
+      "type": "table"
+    },
+    "graphql": {
+      "enabled": true,
+      "type": {
+        "singular": "Site",
+        "plural": "Sites"
+      }
+    },
+    "rest": {
+      "enabled": true
+    },
+    "permissions": [
+      {
+        "role": "anonymous",
+        "actions": [
+          {
+            "action": "*"
+          }
+        ]
+      }
+    ],
+    "relationships": {
+      "Organizations": {
+        "cardinality": "one",
+        "target.entity": "Organization",
+        "source.fields": [
+          "OrganizationId"
+        ],
+        "target.fields": [
+          "OrganizationId"
+        ]
+      }
+    }
+  },
+  "Organization": {
+    "source": {
+      "object": "dbo.ForesiteOrgs",
+      "type": "table"
+    },
+    "graphql": {
+      "enabled": true,
+      "type": {
+        "singular": "Organization",
+        "plural": "Organizations"
+      }
+    },
+    "rest": {
+      "enabled": true
+    },
+    "permissions": [
+      {
+        "role": "anonymous",
+        "actions": [
+          {
+            "action": "*"
+          }
+        ]
+      }
+    ]
+  },
+  "Workflow": {
+    "source": {
+      "object": "dbo.ForesiteWorkflows",
+      "type": "table"
+    },
+    "graphql": {
+      "enabled": true,
+      "type": {
+        "singular": "Workflow",
+        "plural": "Workflows"
+      }
+    },
+    "rest": {
+      "enabled": true
+    },
+    "permissions": [
+      {
+        "role": "anonymous",
+        "actions": [
+          {
+            "action": "*"
+          }
+        ]
+      }
+    ]
+  },
+  "Unit": {
+    "source": {
+      "object": "dbo.ForesiteUnits",
+      "type": "table"
+    },
+    "graphql": {
+      "enabled": true,
+      "type": {
+        "singular": "Unit",
+        "plural": "Units"
+      }
+    },
+    "rest": {
+      "enabled": true
+    },
+    "permissions": [
+      {
+        "role": "anonymous",
+        "actions": [
+          {
+            "action": "*"
+          }
+        ]
+      }
+    ]
+  }
+},
+    "globalHeaders": {
+    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'"
+  }
+}
